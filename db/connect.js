@@ -1,12 +1,9 @@
 const mongoose = require('mongoose')
-
+const connectString = 'mongodb+srv://aditya:1234@nodeexpressprojects.24jwu.mongodb.net/Store-Api?retryWrites=true&w=majority'
 const connectDB = (url) => {
-  return mongoose.connect(url, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
+ 
+
+  return mongoose.connect(connectString)
 }
 
 module.exports = connectDB
