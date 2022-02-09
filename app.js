@@ -5,7 +5,7 @@ const app = express()
 const productsRouter = require('./routes/products')
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler')
-const port =  3000
+const port =  5000
 const connectDB = require('./db/connect')
 
 app.use(express.json())
