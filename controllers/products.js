@@ -12,6 +12,7 @@ const getAllProducts = async(req,res)=>{
         queryObject.company = company
   }
   if(name){
+      //regex
       queryObject.name = { $regex: name, $options: 'i'}
   }
 
@@ -25,11 +26,16 @@ const getAllProducts = async(req,res)=>{
   }else{
         result = result.sort('createdAt')
   }
-  //select
+  //select fields to display
   if(fields){
     const fieldsList = fields.split(',').join(' ')
     result = result.select(fieldsList)
   }
+  //skip to passed page
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 10
+  const skip = (page-1)*limit
+  result = result.skip(skip).limit(limit)
 
   const products = await result
 
@@ -42,6 +48,9 @@ const getAllProductsStatic = async (req,res)=>{
     const products = await Product.find({})
     .sort('-name price')
     .select('name price')
+    .skip(5)
+    .limit(10)
+    
     res.status(200).json({ nbHits: products.length,products})
 
 }
