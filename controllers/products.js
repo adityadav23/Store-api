@@ -11,7 +11,7 @@ const getAllProducts = async(req,res)=>{
         queryObject.company = company
   }
   if(name){
-      queryObject.name = name;
+      queryObject.name = { $regex: name, $options: 'i'}
   }
   console.log(queryObject)
   const products = await Product.find(queryObject)
@@ -19,9 +19,10 @@ const getAllProducts = async(req,res)=>{
    }
 
 const getAllProductsStatic = async (req,res)=>{
-    const name = req.query.name
-    const products = await Product.find({name})
-    console.log(req.query.name)
+    const search ="dd"
+    const products = await Product.find({
+        company: {$regex: search, $options: 'i'}
+    })
     res.status(200).json({products, nbHits: products.length})
 
 }
